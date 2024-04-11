@@ -1,52 +1,83 @@
 .overlay-modal {
-width: 100%;
-height: 100%;
-position: fixed; 
-top: 0;
-left: 0;
-z-index: 9;
-display: flex;
-justify-content: center; 
-align-items: center;
-background-color: rgba(0, 0, 0, 0.511);
+    width: 100%;
+    height: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.511);
 }
 
 .show{
-    animation-name: opacity-animation-show;
+    animation: opacity-animation-show;
     animation-duration: 0.3s;
 }
 
 .fade{
-    animation-name: opacity-animation-fade;
+    animation: opacity-animation-fade;
     animation-duration: 0.3s;
 }
   
 .modal {
-border: 1px solid black;
-border-radius: 10px;
-background-color: white; 
-padding: 15px; 
-width: 35%;
-height: auto;
+    background-color: antiquewhite;
+    border: 2px solid rgba(41, 41, 41, 0.758);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.247);
+    border-radius: 7px;
+    background-color: white;     
+    width: 40%;
+    height: auto;
+    
 }
 
 .title-modal{
-margin-top: -5px;
-text-align: center;
-border-bottom: 1px solid black;
-
-margin-left: -15px;
-margin-right: -15px;
+    text-align: center; 
+    color:rgb(25, 25, 25);
+}
+.separator{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.428);
+    width: 100%;
 }
 .modal-content{
-    width: 100%;
+    width: 90%;
     height: auto;
+    margin-bottom: 20px;
+   margin: auto;
+    
 }
-.close-modal{
-background-color: rgb(245, 63, 63);
-width: 100%;
-height:30px;
-border-radius: 5px;
+
+.btn{
+    border-radius: 5px;
+    height:30px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,.2);
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+}
+.close-modal-full{
+    background-color: rgb(245, 63, 63);
+    width: 100%;
+}
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.confirm-modal{
+    background-color: rgb(60, 165, 63);
+    margin-right: 10px;
+    width: 35%;
+}
+
+.close-modal-mid{
+    width: 35%;
+    background-color: rgb(245, 63, 63);
 }
 
 @keyframes opacity-animation-show {
@@ -61,5 +92,9 @@ border-radius: 5px;
 @media screen and (width <= 375px){
     .modal {
       width: 80%;
+    }
+    .btn{
+        width: 45%;
+        font-size: 5px;
     }
   }
