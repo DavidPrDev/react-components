@@ -1,15 +1,22 @@
-import React from 'react';
-import './styles/modal.css'
+import React, { useEffect, useRef, useState } from 'react';
+import './styles/modal.css';
+
 const Modal = ({ isOpen, onClose, children, title }) => {
 
+  const [isClosing, setIsClosing] = useState(false);
+
   const closeModal = () => {
-    onClose && onClose();
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose && onClose();
+      setIsClosing(false);
+    }, 500);
   };
 
   return (
     <>
       {isOpen && (
-        <div className='overlay-modal'>
+        <div className={`overlay-modal ${isClosing ? 'fade' : 'show'}`}>
           <div className="modal">
             <div className="modal-content">
               <h3 className="title-modal">{title}</h3>
@@ -22,6 +29,5 @@ const Modal = ({ isOpen, onClose, children, title }) => {
     </>
   );
 };
-
 
 export default Modal;
