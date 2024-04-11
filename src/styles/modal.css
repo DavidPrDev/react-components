@@ -89,12 +89,12 @@
     to {opacity: 0;}
 }
 
-@media screen and (width <= 375px){
+@media screen and (width <= 400px){
     .modal {
       width: 80%;
     }
     .btn{
         width: 45%;
-        font-size: 5px;
+        font-size: 10px;
     }
   }
