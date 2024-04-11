@@ -22,11 +22,10 @@
 }
   
 .modal {
-    background-color: antiquewhite;
+    background-color: rgb(222, 233, 249);
     border: 2px solid rgba(41, 41, 41, 0.758);
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.247);
-    border-radius: 7px;
-    background-color: white;     
+    border-radius: 8px;
     width: 40%;
     height: auto;
     
@@ -35,6 +34,7 @@
 .title-modal{
     text-align: center; 
     color:rgb(25, 25, 25);
+    font-size: 20px;
 }
 .separator{
     border-bottom: 1px solid rgba(0, 0, 0, 0.428);
@@ -62,7 +62,7 @@
 }
 .close-modal-full{
     background-color: rgb(245, 63, 63);
-    width: 100%;
+    width: 80%;
 }
 .btn-container{
     display: flex;

@@ -58,7 +58,7 @@ const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, s
   }
   @keyframes out-${direction} {
       from {
-        ${direction}: -0%;
+        ${direction}: 0%;
           opacity: 0;
        }
      
@@ -82,14 +82,16 @@ const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, s
                 {children}
               </div>
               <div className='separator'></div>
-              {!confirm ?
-                <button className='btn close-modal-full' onClick={() => handleCloseModal()}>Close</button>
-                :
-                <div className='btn-container'>
-                  <button className='btn confirm-modal' onClick={() => handleConfirm()}>Confirm</button>
-                  <button className='btn close-modal-mid' onClick={() => handleCloseModal()}>Close</button>
-                </div>
-              }
+              <div className='btn-container'>
+                {!confirm ?
+                  <button className='btn close-modal-full' onClick={() => handleCloseModal()}>Close</button>
+                  :
+                  <>
+                    <button className='btn confirm-modal' onClick={() => handleConfirm()}>Confirm</button>
+                    <button className='btn close-modal-mid' onClick={() => handleCloseModal()}>Close</button>
+                  </>
+                }
+              </div>
             </div>
           </div>
         </>)}
