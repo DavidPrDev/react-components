@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/modal.css';
 
 const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, setConfirm = null }) => {
