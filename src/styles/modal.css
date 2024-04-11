@@ -1,4 +1,3 @@
-
 .overlay-modal {
 width: 100%;
 height: 100%;
@@ -11,24 +10,15 @@ justify-content: center;
 align-items: center;
 background-color: rgba(0, 0, 0, 0.511);
 }
+
 .show{
     animation-name: opacity-animation-show;
-    animation-duration: 0.5s;
-
+    animation-duration: 0.3s;
 }
+
 .fade{
     animation-name: opacity-animation-fade;
-    animation-duration: 0.5s;
-
-
-}
-@keyframes opacity-animation-show {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-@keyframes opacity-animation-fade {
-    from {opacity: 1;}
-    to {opacity: 0;}
+    animation-duration: 0.3s;
 }
   
 .modal {
@@ -38,14 +28,6 @@ background-color: white;
 padding: 15px; 
 width: 35%;
 height: auto;
-animation-name: left-fade;
-animation-duration: 2s;
-
-}
-
-@keyframes left-fade {
-    from {left: -100%;}
-    to {left:0%;}
 }
 
 .title-modal{
@@ -66,7 +48,16 @@ width: 100%;
 height:30px;
 border-radius: 5px;
 }
-  
+
+@keyframes opacity-animation-show {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes opacity-animation-fade {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
 @media screen and (width <= 375px){
     .modal {
       width: 80%;
