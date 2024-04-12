@@ -1,0 +1,1 @@
+export { default as Modal } from './src/components/Modal/Modal.jsx';

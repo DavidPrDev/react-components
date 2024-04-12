@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles/modal.css';
+import './modal.css';
 
 const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, setConfirm = null }) => {
 
@@ -59,12 +59,12 @@ const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, s
   @keyframes out-${direction} {
       from {
         ${direction}: 0%;
-          opacity: 0;
+          opacity: 1;
        }
      
       to{ 
         ${direction}: -100%;
-       opacity: 1;
+       opacity: 0;
       }
   }`;
 
