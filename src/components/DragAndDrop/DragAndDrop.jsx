@@ -28,17 +28,22 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
 
                 setFile(prevFiles => {
                     const updatedFiles = {
-                        ...prevFiles, // Copia todos los archivos existentes
-                        [e.dataTransfer.files[0].name]: e.dataTransfer.files[0] // Agrega el nuevo archivo utilizando su nombre como clave
+                        ...prevFiles,
+                        [e.dataTransfer.files[0].name]: e.dataTransfer.files[0]
                     };
                     return updatedFiles;
                 });
+                console.log(file)
             } else {
                 setFile(e.dataTransfer.files[0]);
             }
-
-
             setAccepted(true)
+
+            setTimeout(() => {
+                setAccepted(false)
+            }, 2000)
+
+
         } else {
 
             setFileName("");
@@ -61,12 +66,57 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
         setFile(null)
     }
 
+
+    const handleFileChange = (e) => {
+
+        const selectedFile = e.target.files[0];
+
+        if (selectedFile) {
+
+            setFileName(selectedFile.name)
+
+            if (rules.includes(selectedFile.type)) {
+
+                if (multiple) {
+
+                    setFile(prevFiles => {
+                        const updatedFiles = {
+                            ...prevFiles,
+                            [selectedFile.name]: selectedFile
+                        };
+                        return updatedFiles;
+                    });
+                } else {
+                    setFile(selectedFile);
+                }
+                console.log(file)
+                setAccepted(true);
+
+                setTimeout(() => {
+                    setAccepted("");
+                }, 2000);
+            } else {
+                setFileName("");
+                setInvalid(true);
+                setError("¡Archivo no válido!");
+
+                setTimeout(() => {
+                    setError("");
+                    setInvalid("");
+                }, 2000);
+            }
+        }
+    };
+
     return (
         <>
+
             <div
                 className={`drag-container ${acceted && 'file-accept'} ${invalid && 'file-invalid'}`}
                 onDragOver={e => { e.preventDefault() }}
-                onDrop={e => { loadFile(e) }}>
+                onDrop={e => { loadFile(e) }}
+            >
+                <input type="file" onChange={handleFileChange} />
 
                 <label className="label-drag">Drop your files here !</label>
 
@@ -83,7 +133,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
                             <div key={index} className="multi-file-container">
 
                                 <img src={docIcon} alt="Document icon" className="img-doc-multi" />
-                                <div className="file-name-multi">{fil.name.length > 5 ? "..." + fil.name.substring() : fil.name} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>
+                                <div className="file-name-multi">{fil.name.length > 5 ? "..." + fil.name.substring(fil.name.length / 2 + 2) : fil.name} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>
 
                             </div>
                         )}

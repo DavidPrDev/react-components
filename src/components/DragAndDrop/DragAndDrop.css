@@ -1,17 +1,18 @@
 .drag-container{
     width: 100%;
     height: 100%;
-    border: 4px solid rgba(75, 75, 254, 0.827);
+    border: 4px solid rgba(75, 75, 254, 0.664);
     border-radius: 10px;
     border-style:dashed;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    padding-bottom: 20px;
 }
 
 .label-drag{
-    margin-top:  30px;
+    margin-top:  20px;
     font-size: 30px;
     font-weight: bold;
     color: rgba(75, 75, 254, 0.827);
@@ -24,10 +25,10 @@
 }
 
 .file-accept{
-    background-color:rgba(0, 128, 0, 0.478) ;
+    background-color:rgba(0, 128, 0, 0.150) ;
 }
 .file-invalid{
-    background-color:rgba(128, 0, 0, 0.249) ;
+    background-color:rgba(128, 0, 0, 0.150) ;
 }
 
 .file-name{
@@ -63,13 +64,19 @@
 .row-icons{
     display: flex;
     flex-wrap: wrap; 
+    
 }
 .multi-file-container{
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 30%;
+    margin:auto;
 }
-@media screen and (width <= 500px){
+.file-name-multi{
+    display: flex;
+}
+@media screen and (width <= 570px){
     .label-drag{
         font-size: 20px;
     }
