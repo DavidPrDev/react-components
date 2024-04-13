@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
 }
 
 .label-drag{
@@ -23,21 +24,10 @@
 }
 
 .file-accept{
-    background-color:rgba(0, 128, 0, 0.249) ;
+    background-color:rgba(0, 128, 0, 0.478) ;
 }
 .file-invalid{
     background-color:rgba(128, 0, 0, 0.249) ;
-}
-
-.background-hover{
-    border: 1px solid green ;
-    border-radius: 20px ;
-    width: 50px;
-    height: 50px;
-}
-
-.display-none{
-    display: none;
 }
 
 .file-name{
@@ -51,22 +41,36 @@
     height: 80px;
     margin-top: 20px;
 }
+.img-doc-multi{
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
+}
+
 
 .error-txt{
     color:rgb(255, 55, 55);
-    margin-top: 50px;
-   
-
+    margin-top: 70px;
+    position: fixed;
 }
+
 .delete-file{
     cursor: pointer;
     background-color: transparent;
     border: none;
 }
+
+.row-icons{
+    display: flex;
+    flex-wrap: wrap; 
+}
+.multi-file-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 @media screen and (width <= 500px){
     .label-drag{
         font-size: 20px;
     }
-
-
 }

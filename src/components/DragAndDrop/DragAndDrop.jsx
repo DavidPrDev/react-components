@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './DragAndDrop.css';
-import dragIcon from './img/dragIcon.png';
 import docIcon from './img/docIcon.png';
 
-const DragAndDrop = ({ setFile }) => {
+const DragAndDrop = ({ setFile, multiple = false, file }) => {
 
     const [fileName, setFileName] = useState("");
-    const [acceted, setAccepted] = useState(null);
-    const [invalid, setInvalid] = useState(null);
+    const [acceted, setAccepted] = useState("");
+    const [invalid, setInvalid] = useState("");
     const [error, setError] = useState(null);
 
     const rules = ["application/pdf",
@@ -23,20 +22,33 @@ const DragAndDrop = ({ setFile }) => {
         e.preventDefault();
 
         if (e.dataTransfer !== null && rules.includes(e.dataTransfer.files[0].type)) {
-            console.log(e.dataTransfer.files[0].type);
             setFileName(e.dataTransfer.files[0].name);
-            setFile(e.dataTransfer.files[0]);
+
+            if (multiple) {
+
+                setFile(prevFiles => {
+                    const updatedFiles = {
+                        ...prevFiles, // Copia todos los archivos existentes
+                        [e.dataTransfer.files[0].name]: e.dataTransfer.files[0] // Agrega el nuevo archivo utilizando su nombre como clave
+                    };
+                    return updatedFiles;
+                });
+            } else {
+                setFile(e.dataTransfer.files[0]);
+            }
+
+
             setAccepted(true)
         } else {
-            setFile(null);
-            setFileName(null);
-            setAccepted(false)
+
+            setFileName("");
+            setAccepted("")
             setInvalid(true)
             setError("¡Archivo no valido !");
 
             setTimeout(() => {
                 setError("")
-                setInvalid(false)
+                setInvalid("")
             }, 2000)
 
         }
@@ -46,9 +58,8 @@ const DragAndDrop = ({ setFile }) => {
         setAccepted(false);
         setFileName(null);
         setFileName(null);
+        setFile(null)
     }
-
-
 
     return (
         <>
@@ -59,12 +70,27 @@ const DragAndDrop = ({ setFile }) => {
 
                 <label className="label-drag">Drop your files here !</label>
 
+                {error && <h1 className="error-txt">{error}</h1>}
 
-                {fileName && <img src={docIcon} alt="Document icon" className="img-doc" />}
+                {multiple == false ?
 
-                {error && <h2 className="error-txt">{error}</h2>}
+                    <>
+                        {fileName && <img src={docIcon} alt="Document icon" className="img-doc" />}
+                        {fileName && <div className="file-name">{fileName} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>}                    </>
+                    :
+                    <div className="row-icons">
+                        {file && Object.values(file).map((fil, index) =>
+                            <div key={index} className="multi-file-container">
 
-                {fileName && <div className="file-name">{fileName} <button className='delete-file' onClick={() => handleReset()}>❌</button> </div>}
+                                <img src={docIcon} alt="Document icon" className="img-doc-multi" />
+                                <div className="file-name-multi">{fil.name.length > 5 ? "..." + fil.name.substring() : fil.name} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>
+
+                            </div>
+                        )}
+                    </div>
+
+                }
+
             </div>
 
         </>
