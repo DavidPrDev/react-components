@@ -8,6 +8,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
     const [acceted, setAccepted] = useState("");
     const [invalid, setInvalid] = useState("");
     const [error, setError] = useState(null);
+    const [showTooltip, setshowTooltip] = useState(false);
 
     const rules = ["application/pdf",
         "application/msword",
@@ -17,25 +18,51 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
         "text/plain",
         "application/vnd.oasis.opendocument.text"
     ];
-    //Hacer funciones comunes y crear archivo constantes 
-    const loadFile = (e) => {
-        e.preventDefault();
+    const loadFile = (e) => { checkFile(e) };
 
-        if (e.dataTransfer !== null && rules.includes(e.dataTransfer.files[0].type)) {
-            setFileName(e.dataTransfer.files[0].name);
+    const handleFileChange = (e) => { checkFile(e, 'input') };
+
+    const handleReset = ($name = null) => {
+
+        setAccepted(false);
+        setFileName(null);
+
+        if ($name == null) {
+            setFile(null)
+        } else {
+            const updatedFile = { ...file };
+            delete updatedFile[$name];
+            setFile(updatedFile);
+        }
+    }
+
+    const checkFile = (e, type = null) => {
+        e.preventDefault();
+        let fileEvent;
+
+        if (type != null) {
+            fileEvent = e.target;
+            console.log("dentro if")
+        } else {
+            console.log("dentro else")
+            fileEvent = e.dataTransfer;
+        }
+
+        if (fileEvent !== null && rules.includes(fileEvent.files[0].type)) {
+
+            setFileName(fileEvent.files[0].name);
 
             if (multiple) {
 
                 setFile(prevFiles => {
                     const updatedFiles = {
                         ...prevFiles,
-                        [e.dataTransfer.files[0].name]: e.dataTransfer.files[0]
+                        [fileEvent.files[0].name]: fileEvent.files[0]
                     };
                     return updatedFiles;
                 });
-                console.log(file)
             } else {
-                setFile(e.dataTransfer.files[0]);
+                setFile(fileEvent.files[0]);
             }
             setAccepted(true)
 
@@ -57,64 +84,13 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
             }, 2000)
 
         }
-    };
-
-    const handleReset = ($name = null) => {
-        setAccepted(false);
-        setFileName(null);
-
-        if ($name == null) {
-            setFile(null)
-        } else {
-            const updatedFile = { ...file };
-            delete updatedFile[$name];
-            setFile(updatedFile);
-
-        }
 
     }
 
-
-    const handleFileChange = (e) => {
-
-        const selectedFile = e.target.files[0];
-
-        if (selectedFile) {
-
-            setFileName(selectedFile.name)
-
-            if (rules.includes(selectedFile.type)) {
-
-                if (multiple) {
-
-                    setFile(prevFiles => {
-                        const updatedFiles = {
-                            ...prevFiles,
-                            [selectedFile.name]: selectedFile
-                        };
-                        return updatedFiles;
-                    });
-                } else {
-                    setFile(selectedFile);
-                }
-                console.log(file)
-                setAccepted(true);
-
-                setTimeout(() => {
-                    setAccepted("");
-                }, 2000);
-            } else {
-                setFileName("");
-                setInvalid(true);
-                setError("¡Archivo no válido!");
-
-                setTimeout(() => {
-                    setError("");
-                    setInvalid("");
-                }, 2000);
-            }
-        }
-    };
+    const showToltip = (e, name) => {
+        console.log(name)
+        setshowTooltip(true)
+    }
 
     return (
         <>
@@ -125,15 +101,15 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
                 onDrop={e => { loadFile(e) }}
             >
 
-                <div className="container-txt"></div>
-                <h2 className="title-drag">Drop your files here !</h2>
+                <div className="centered">
+                    <h2 className="title-drag">Drop your files here !</h2>
 
-                <p className="str-separator">Or Click</p>
+                    <p className="str-separator">Or Click</p>
 
-                {error && <h1 className="error-txt">{error}</h1>}
+                    {error && <h1 className="error-txt">{error}</h1>}
 
-                <input type="file" className="file-input" onChange={handleFileChange} />
-
+                    <input type="file" className="file-input" onChange={handleFileChange} />
+                </div>
                 {multiple == false ?
 
                     <>
@@ -148,8 +124,14 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
                         {file && Object.values(file).map((fil, index) =>
                             <div key={index} className="multi-file-container">
 
+                                <div className="tooltip-container" onMouseEnter={e => showToltip(e, fil.name)} onMouseLeave={e => setshowTooltip(false)} >
+                                    <p className={`tooltip-name ${showTooltip ? 'show' : 'hidden'}`}>{fil.name}</p>
+                                </div>
+
                                 <img src={docIcon} alt="Document icon" className="img-doc-multi" />
-                                <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length / 2) : fil.name} <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button></div>
+                                <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length - 1, fil.name.length - 7) : fil.name}
+                                    <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button>
+                                </div>
 
                             </div>
                         )}
@@ -157,7 +139,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
 
                 }
 
-            </div>
+            </div >
 
         </>
     )
