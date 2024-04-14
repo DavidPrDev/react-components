@@ -17,7 +17,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
         "text/plain",
         "application/vnd.oasis.opendocument.text"
     ];
-
+    //Hacer funciones comunes y crear archivo constantes 
     const loadFile = (e) => {
         e.preventDefault();
 
@@ -59,11 +59,19 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
         }
     };
 
-    const handleReset = () => {
+    const handleReset = ($name = null) => {
         setAccepted(false);
         setFileName(null);
-        setFileName(null);
-        setFile(null)
+
+        if ($name == null) {
+            setFile(null)
+        } else {
+            const updatedFile = { ...file };
+            delete updatedFile[$name];
+            setFile(updatedFile);
+
+        }
+
     }
 
 
@@ -116,24 +124,32 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
                 onDragOver={e => { e.preventDefault() }}
                 onDrop={e => { loadFile(e) }}
             >
-                <input type="file" onChange={handleFileChange} />
 
-                <label className="label-drag">Drop your files here !</label>
+                <div className="container-txt"></div>
+                <h2 className="title-drag">Drop your files here !</h2>
+
+                <p className="str-separator">Or Click</p>
 
                 {error && <h1 className="error-txt">{error}</h1>}
+
+                <input type="file" className="file-input" onChange={handleFileChange} />
 
                 {multiple == false ?
 
                     <>
-                        {fileName && <img src={docIcon} alt="Document icon" className="img-doc" />}
-                        {fileName && <div className="file-name">{fileName} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>}                    </>
+                        <div className="row-icon">
+                            {fileName && <img src={docIcon} alt="Document icon" className="img-doc" />}
+                            {fileName && <div className="file-name">{fileName} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>}
+                        </div>
+                    </>
+
                     :
                     <div className="row-icons">
                         {file && Object.values(file).map((fil, index) =>
                             <div key={index} className="multi-file-container">
 
                                 <img src={docIcon} alt="Document icon" className="img-doc-multi" />
-                                <div className="file-name-multi">{fil.name.length > 5 ? "..." + fil.name.substring(fil.name.length / 2 + 2) : fil.name} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>
+                                <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length / 2) : fil.name} <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button></div>
 
                             </div>
                         )}

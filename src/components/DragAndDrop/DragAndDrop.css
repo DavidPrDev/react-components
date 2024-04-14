@@ -1,6 +1,6 @@
 .drag-container{
-    width: 100%;
-    height: 100%;
+    width: auto; 
+    height: auto;
     border: 4px solid rgba(75, 75, 254, 0.664);
     border-radius: 10px;
     border-style:dashed;
@@ -9,12 +9,11 @@
     align-items: center;
     overflow: auto;
     padding-bottom: 20px;
+    position: relative;
 }
 
-.label-drag{
-    margin-top:  20px;
-    font-size: 30px;
-    font-weight: bold;
+.title-drag{
+    margin-top:  10px;
     color: rgba(75, 75, 254, 0.827);
 }
 
@@ -38,9 +37,10 @@
 
 }
 .img-doc{
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     margin-top: 20px;
+ 
 }
 .img-doc-multi{
     width: 50px;
@@ -63,8 +63,14 @@
 
 .row-icons{
     display: flex;
-    flex-wrap: wrap; 
-    
+    flex-wrap: wrap;   
+    z-index: 2;
+}
+.row-icon{ 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .multi-file-container{
     display: flex;
@@ -75,9 +81,30 @@
 }
 .file-name-multi{
     display: flex;
+    color: rgba(75, 75, 254, 0.827);
+    font-weight: bold;
 }
+
+.file-input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    cursor: pointer; 
+    z-index: 1;
+}
+
+.str-separator{
+    margin-top: -10px;
+    margin-bottom:20px;
+    font-size: 20px;
+    color: rgba(75, 75, 254, 0.827);
+    font-weight: bold;
+}
+
 @media screen and (width <= 570px){
-    .label-drag{
+    .title-drag{
         font-size: 20px;
     }
 }
