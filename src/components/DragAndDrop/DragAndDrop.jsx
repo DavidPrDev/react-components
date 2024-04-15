@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './DragAndDrop.css';
+import { DocRules, ImgRules } from './constants/constants.js';
 import docIcon from './img/docIcon.png';
+import imgIcon from './img/imgIcon.png';
 
-const DragAndDrop = ({ setFile, multiple = false, file }) => {
+const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
     const [fileName, setFileName] = useState("");
     const [acceted, setAccepted] = useState("");
     const [invalid, setInvalid] = useState("");
     const [error, setError] = useState(null);
     const [showTooltip, setshowTooltip] = useState(false);
+    const [rules, setRules] = useState([]);
+    const [icon, setIcon] = useState(null);
 
-    const rules = ["application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.ms-excel",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "text/plain",
-        "application/vnd.oasis.opendocument.text"
-    ];
+    useEffect(() => {
+        if (type === 'document') {
+            setRules(DocRules);
+            setIcon(docIcon);
+        } else if (type === 'image') {
+            setRules(ImgRules);
+            setIcon(imgIcon);
+        }
+    }, []);
     const loadFile = (e) => { checkFile(e) };
 
     const handleFileChange = (e) => { checkFile(e, 'input') };
@@ -39,14 +44,10 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
     const checkFile = (e, type = null) => {
         e.preventDefault();
         let fileEvent;
+        type != null ? fileEvent = e.target : fileEvent = e.dataTransfer;
 
-        if (type != null) {
-            fileEvent = e.target;
-            console.log("dentro if")
-        } else {
-            console.log("dentro else")
-            fileEvent = e.dataTransfer;
-        }
+        console.log("tal 1", fileEvent.files[0])
+        console.log("tal", fileEvent.files[0].type)
 
         if (fileEvent !== null && rules.includes(fileEvent.files[0].type)) {
 
@@ -87,10 +88,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
 
     }
 
-    const showToltip = (e, name) => {
-        console.log(name)
-        setshowTooltip(true)
-    }
+    const showToltip = (e, name) => { setshowTooltip(true) }
 
     return (
         <>
@@ -114,7 +112,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
 
                     <>
                         <div className="row-icon">
-                            {fileName && <img src={docIcon} alt="Document icon" className="img-doc" />}
+                            {fileName && <img src={icon} alt="Document icon" className="img-icon" />}
                             {fileName && <div className="file-name">{fileName} <button className='delete-file' onClick={() => handleReset()}>❌</button></div>}
                         </div>
                     </>
@@ -128,7 +126,7 @@ const DragAndDrop = ({ setFile, multiple = false, file }) => {
                                     <p className={`tooltip-name ${showTooltip ? 'show' : 'hidden'}`}>{fil.name}</p>
                                 </div>
 
-                                <img src={docIcon} alt="Document icon" className="img-doc-multi" />
+                                <img src={icon} alt="Document icon" className="img-icon" />
                                 <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length - 1, fil.name.length - 7) : fil.name}
                                     <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button>
                                 </div>
