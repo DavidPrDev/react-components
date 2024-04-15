@@ -68,7 +68,6 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
                 setAccepted(false)
             }, 2000)
 
-
         } else {
 
             setFileName("");
@@ -80,16 +79,11 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
                 setError("")
                 setInvalid("")
             }, 2000)
-
         }
-
     }
 
     return (
         <>
-            <Tooltip text='holita' direction='top'>
-                <p>vergas gordas</p>
-            </Tooltip>
             <div
                 className={`drag-container ${acceted && 'file-accept'} ${invalid && 'file-invalid'}`}
                 onDragOver={e => { e.preventDefault() }}

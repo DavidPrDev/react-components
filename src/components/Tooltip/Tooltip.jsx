@@ -12,6 +12,7 @@ const Tooltip = ({ text, children, direction }) => {
             setDirection('bottom')
         }
     }, []);
+
     return (
         <div className="tooltip">
             {children}
