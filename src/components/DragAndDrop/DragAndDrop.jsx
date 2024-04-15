@@ -85,10 +85,11 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
     }
 
-
     return (
         <>
-
+            <Tooltip text='holita' direction='top'>
+                <p>vergas gordas</p>
+            </Tooltip>
             <div
                 className={`drag-container ${acceted && 'file-accept'} ${invalid && 'file-invalid'}`}
                 onDragOver={e => { e.preventDefault() }}
@@ -100,7 +101,7 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
                     <p className="str-separator">Or Click</p>
 
-                    {error && <h1 className="error-txt">{error}</h1>}
+                    {error && <h2 className="error-txt">{error}</h2>}
 
                     <input type="file" className="file-input" onChange={handleFileChange} />
                 </div>
@@ -119,7 +120,7 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
                             <div key={index} className="multi-file-container">
 
 
-                                <Tooltip text={fil.name}>
+                                <Tooltip text={fil.name} direction='bottom'>
                                     <img src={icon} alt="Document icon" className="img-icon" />
                                     <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length - 1, fil.name.length - 7) : fil.name}
                                         <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button>
