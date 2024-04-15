@@ -46,7 +46,6 @@
  
 }
 
-
 .error-txt{
     color:rgb(255, 55, 55);
     margin-top: 70px;
@@ -57,7 +56,7 @@
     cursor: pointer;
     background-color: transparent;
     border: none;
-    z-index: 3;
+    z-index: 2;
 }
 
 
@@ -73,31 +72,18 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea */
+    flex-wrap: wrap; 
 }
 
 .multi-file-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 33%; /* Cada elemento ocupa el 33% del ancho del contenedor padre */
-   
+    width: 33%; 
     position: relative;
 }
 
-.tooltip-container{
-    position: absolute;
 
-}
-.tooltip-name{
-   
-    margin-top: 90px;
-    margin-left: 10px;
-    background-color: rgb(80, 80, 80);
-    color: aliceblue;
-    z-index: 99999;
-    
-}
 .file-name-multi{
     display: flex;
     color: rgba(75, 75, 254, 0.827);
@@ -121,13 +107,7 @@
     color: rgba(75, 75, 254, 0.827);
     font-weight: bold;
 }
-.hidden{
-   opacity: 0;
-}
-.show{
-    opacity: 1;
- 
-}
+
 
 @media screen and (width <= 570px){
 
@@ -138,7 +118,7 @@
         font-size: 16px;
     }
     .delete-file{
-        margin-top:-70px;
+        margin-top:-60px;
         padding-right: 40px;
         position: absolute;
     }

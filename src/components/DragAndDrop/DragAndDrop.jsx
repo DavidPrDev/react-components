@@ -3,6 +3,7 @@ import './DragAndDrop.css';
 import { DocRules, ImgRules } from './constants/constants.js';
 import docIcon from './img/docIcon.png';
 import imgIcon from './img/imgIcon.png';
+import Tooltip from "../Tooltip/Tooltip.jsx";
 
 const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
@@ -10,7 +11,6 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
     const [acceted, setAccepted] = useState("");
     const [invalid, setInvalid] = useState("");
     const [error, setError] = useState(null);
-    const [showTooltip, setshowTooltip] = useState(false);
     const [rules, setRules] = useState([]);
     const [icon, setIcon] = useState(null);
 
@@ -45,9 +45,6 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
         e.preventDefault();
         let fileEvent;
         type != null ? fileEvent = e.target : fileEvent = e.dataTransfer;
-
-        console.log("tal 1", fileEvent.files[0])
-        console.log("tal", fileEvent.files[0].type)
 
         if (fileEvent !== null && rules.includes(fileEvent.files[0].type)) {
 
@@ -88,7 +85,6 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
     }
 
-    const showToltip = (e, name) => { setshowTooltip(true) }
 
     return (
         <>
@@ -122,14 +118,15 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
                         {file && Object.values(file).map((fil, index) =>
                             <div key={index} className="multi-file-container">
 
-                                <div className="tooltip-container" onMouseEnter={e => showToltip(e, fil.name)} onMouseLeave={e => setshowTooltip(false)} >
-                                    <p className={`tooltip-name ${showTooltip ? 'show' : 'hidden'}`}>{fil.name}</p>
-                                </div>
 
-                                <img src={icon} alt="Document icon" className="img-icon" />
-                                <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length - 1, fil.name.length - 7) : fil.name}
-                                    <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button>
-                                </div>
+                                <Tooltip text={fil.name}>
+                                    <img src={icon} alt="Document icon" className="img-icon" />
+                                    <div className="file-name-multi">{fil.name.length > 10 ? "..." + fil.name.substring(fil.name.length - 1, fil.name.length - 7) : fil.name}
+                                        <button className='delete-file' onClick={() => handleReset(fil.name)}>❌</button>
+                                    </div>
+                                </Tooltip>
+
+
 
                             </div>
                         )}
