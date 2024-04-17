@@ -22,7 +22,7 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
             setRules(ImgRules);
             setIcon(imgIcon);
         }
-    }, []);
+    }, [type]);
     const loadFile = (e) => { checkFile(e) };
 
     const handleFileChange = (e) => { checkFile(e, 'input') };
