@@ -19,10 +19,10 @@
     white-space: nowrap;
   }
   .bottom{
-    bottom: -30px;
+    bottom: -10px;
   }
   .top{
-    bottom: 55px;
+    bottom: 65px;
   }
   
   .tooltip:hover .tooltip-text {
