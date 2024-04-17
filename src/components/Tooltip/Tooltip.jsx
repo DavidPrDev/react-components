@@ -11,7 +11,7 @@ const Tooltip = ({ text, children, direction }) => {
         } else if (direction === 'bottom') {
             setDirection('bottom')
         }
-    }, []);
+    }, [direction]);
 
     return (
         <div className="tooltip">
