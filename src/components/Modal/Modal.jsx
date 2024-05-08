@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './modal.css';
+import PropTypes from 'prop-types';
 
 const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, setConfirm = null }) => {
 
@@ -99,5 +100,13 @@ const Modal = ({ isOpen, direction, setOpen, children, title, confirm = false, s
     </>
   );
 };
-
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  direction: PropTypes.oneOf(['left', 'right', 'top', 'bottom']).isRequired,
+  setOpen: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  confirm: PropTypes.bool,
+  setConfirm: PropTypes.func
+};
 export default Modal;
