@@ -188,8 +188,6 @@ Cuando tengamos nuestra librerìa lista podremos publicarla:
 ```sh
    npm publish --access public
 ```
-<a href="https://api-receptarium.david-pr.com/api/documentation">Visita la documentacion de swagger </a>
-
 
 <p align="right">(<a href="#readme-top">Volver al incio</a>)</p>
 
