@@ -8,10 +8,8 @@ export default {
 
 };
 
-// Define la historia Basic
 export const Basic = (args) => (
   <Modal {...args}>
-    {/* Contenido del modal */}
     {args.children}
   </Modal>
 );
@@ -20,16 +18,16 @@ Basic.args = {
   isOpen: true,
   confirm:false,
   direction: 'right',
-  title: 'Título del Modal',
+  title: 'Modal title' ,
   setOpen: () => Basic.args.isOpen = false,
   setConfirm: () => Basic.args.isOpen = false,
-  children: 'Este es el contenido del modal.' // Contenido por defecto
+  children: 'This is the content of the modal.'
 };
 
 Basic.parameters = {
   docs: {
     description: {
-      story: 'Este es un ejemplo básico de un modal.'
+      story: 'This is a basic example of a modal.'
     }
   }
 };

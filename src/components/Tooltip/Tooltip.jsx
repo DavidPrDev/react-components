@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Tooltip.css';
+import PropTypes from 'prop-types';
 
 const Tooltip = ({ text, children, direction }) => {
 
@@ -20,5 +21,9 @@ const Tooltip = ({ text, children, direction }) => {
         </div>
     );
 };
-
+Tooltip.propTypes = {
+    direction: PropTypes.oneOf(['top', 'bottom']).isRequired,
+    children: PropTypes.node,
+    text: PropTypes.string.isRequired,
+};
 export default Tooltip;

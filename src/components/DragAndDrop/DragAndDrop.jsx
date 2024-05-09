@@ -4,6 +4,8 @@ import { DocRules, ImgRules } from './constants/constants.js';
 import docIcon from './img/docIcon.png';
 import imgIcon from './img/imgIcon.png';
 import Tooltip from "../Tooltip/Tooltip.jsx";
+import PropTypes from 'prop-types';
+
 
 const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
 
@@ -134,5 +136,10 @@ const DragAndDrop = ({ setFile, multiple = false, file, type }) => {
         </>
     )
 }
-
+DragAndDrop.propTypes = {
+    multiple: PropTypes.bool.isRequired,
+    type: PropTypes.oneOf(['document', 'image']).isRequired,
+    setFile: PropTypes.func.isRequired,
+    file: PropTypes.node
+};
 export default DragAndDrop;
